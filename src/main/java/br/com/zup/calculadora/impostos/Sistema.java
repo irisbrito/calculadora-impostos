@@ -22,10 +22,15 @@ public class Sistema {
             int resposta = IO.criarScanner().nextInt();
 
             if(resposta == 1){
-
+                calcularValorLiquidoDoProdutoComICMS();
             }
         }
 
     }
 
+
+    public void calcularValorLiquidoDoProdutoComICMS(){
+        double total = valorProduto - calculoICMS.calcularImposto();
+        IO.mostrarTexto("O valor líquido do produto é: " + total);
+    }
 }

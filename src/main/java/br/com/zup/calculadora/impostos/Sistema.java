@@ -14,5 +14,18 @@ public class Sistema {
         IO.mostrarTexto("Escolha o imposto: 1 - ICMS \n 2 - PIS \n 3 - Cofins");
     }
 
+    public void executarSistema() {
+        boolean continuar = true;
+
+        while(continuar){
+            menu();
+            int resposta = IO.criarScanner().nextInt();
+
+            if(resposta == 1){
+
+            }
+        }
+
+    }
 
 }

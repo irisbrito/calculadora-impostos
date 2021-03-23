@@ -1,9 +1,8 @@
 package br.com.zup.calculadora.impostos;
 
+import br.com.zup.calculadora.impostos.service.Sistema;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-
-import java.util.Scanner;
 
 @SpringBootApplication
 public class CalculadoraImpostosApplication {

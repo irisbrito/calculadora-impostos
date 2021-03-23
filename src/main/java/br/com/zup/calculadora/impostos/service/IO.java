@@ -1,4 +1,4 @@
-package br.com.zup.calculadora.impostos;
+package br.com.zup.calculadora.impostos.service;
 
 import java.util.Scanner;
 

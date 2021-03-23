@@ -1,4 +1,4 @@
-package br.com.zup.calculadora.impostos;
+package br.com.zup.calculadora.impostos.entity;
 
 public interface Tributavel {
 

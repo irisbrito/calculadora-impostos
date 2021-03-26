@@ -24,4 +24,9 @@ public class ProdutoController {
 
         return produtoService.calcularValorLiquido(objProduto, imposto);
     }
+
+    @GetMapping("{nome}/")
+    public Produto pesquisarProduto(@PathVariable String nome){
+        return produtoService.pesquisarProduto(nome);
+    }
 }

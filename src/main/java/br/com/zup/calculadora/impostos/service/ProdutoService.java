@@ -21,4 +21,33 @@ public class ProdutoService {
         return produto;
     }
 
+    public Produto pesquisarProduto(String nome){
+        for(Produto produto : produtos){
+            if(produto.getNome().equalsIgnoreCase(nome)){
+                return produto;
+            }
+        }
+        throw new RuntimeException("Produto não encontrado");
+    }
+
+    public double calcularValorLiquido(Produto produto, String imposto){
+
+        double impostoCalculado;
+        double valorLiquido = 0;
+
+        if(imposto.equalsIgnoreCase("ICMS")){
+            impostoCalculado = calculoICMS.calcularImposto();
+            valorLiquido = produto.getPreco() - impostoCalculado;
+        }
+        else if(imposto.equalsIgnoreCase("PIS")){
+            impostoCalculado = calculoPIS.calcularImposto();
+            valorLiquido = produto.getPreco() - impostoCalculado;
+
+        } else if(imposto.equalsIgnoreCase("Cofins")){
+            impostoCalculado = calculoCofins.calcularImposto();
+            valorLiquido = produto.getPreco() - impostoCalculado;
+        }
+
+        return valorLiquido;
+    }
 }

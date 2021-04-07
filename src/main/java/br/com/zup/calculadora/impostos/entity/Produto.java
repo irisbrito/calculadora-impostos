@@ -49,4 +49,5 @@ public class Produto {
     public void setTipoDeProduto(TipoDeProduto tipoDeProduto) {
         this.tipoDeProduto = tipoDeProduto;
     }
+
 }

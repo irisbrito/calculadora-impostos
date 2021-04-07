@@ -3,9 +3,7 @@ package br.com.zup.calculadora.impostos.controller;
 import br.com.zup.calculadora.impostos.entity.Produto;
 import br.com.zup.calculadora.impostos.service.ProdutoService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("produtos/")
@@ -15,7 +13,20 @@ public class ProdutoController {
     ProdutoService produtoService;
 
     @PostMapping
-    public Produto cadastrarProduto(Produto produto){
+    public Produto cadastrarProduto(@RequestBody Produto produto){
       return produtoService.cadastrarProduto(produto);
+    }
+
+    //produtos/calcular/caneta/ICMS
+    @GetMapping("calculo/{produto}/{imposto}/")
+    public double calcularValorLiquido(@PathVariable String produto, @PathVariable String imposto){
+        Produto objProduto = produtoService.pesquisarProduto(produto);
+
+        return produtoService.calcularValorLiquido(objProduto, imposto);
+    }
+
+    @GetMapping("{nome}/")
+    public Produto pesquisarProduto(@PathVariable String nome){
+        return produtoService.pesquisarProduto(nome);
     }
 }

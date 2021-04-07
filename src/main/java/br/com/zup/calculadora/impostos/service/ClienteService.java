@@ -2,28 +2,26 @@ package br.com.zup.calculadora.impostos.service;
 
 import br.com.zup.calculadora.impostos.entity.Cliente;
 import br.com.zup.calculadora.impostos.entity.Produto;
+import br.com.zup.calculadora.impostos.repository.ClienteRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ClienteService {
 
-    List<Cliente> clientes = new ArrayList<>();
+    @Autowired
+    ClienteRepository clienteRepository;
 
     public Cliente cadastrarCliente(Cliente cliente){
-        clientes.add(cliente);
-
-        return cliente;
+        return clienteRepository.save(cliente);
     }
 
-    public Cliente cadastrarCliente (String nome){
-        for(Cliente cliente : clientes){
-            if(cliente.getNome().equalsIgnoreCase(nome)){
-                return cliente;
-            }
-        }
-        throw new RuntimeException("Cliente não encontrado");
+    public Optional<Cliente> pesquisarCliente (String cpf){
+        return clienteRepository.findById(cpf);
     }
+
 }

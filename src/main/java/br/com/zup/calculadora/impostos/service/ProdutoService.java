@@ -49,13 +49,13 @@ public class ProdutoService {
             valorLiquido = produto.getPreco() - impostoCalculado;
         }
 
-       validarDescontoDoValorLiquido(produto);
+        validarDescontoDoValorLiquido(produto);
 
         return valorLiquido;
     }
 
     public void validarDescontoDoValorLiquido(Produto produto){
-        if(produto.getTipoDeProduto().equals("PRODUTO_ACABADO")){
+        if(produto.getTipoDeProduto() == TipoDeProduto.PRODUTO_ACABADO){
             valorLiquido = valorLiquido - (valorLiquido / 100);
         }
     }

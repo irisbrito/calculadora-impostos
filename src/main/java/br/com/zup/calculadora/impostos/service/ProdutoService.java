@@ -9,6 +9,7 @@ import java.util.List;
 @Service
 public class ProdutoService {
 
+    private double valorLiquido;
     private List<Produto> produtos = new ArrayList<>();
 
     Tributavel calculoCofins = new CalculoCofins();
@@ -33,7 +34,7 @@ public class ProdutoService {
     public double calcularValorLiquido(Produto produto, String imposto){
 
         double impostoCalculado;
-        double valorLiquido = 0;
+
 
         if(imposto.equalsIgnoreCase("ICMS")){
             impostoCalculado = calculoICMS.calcularImposto();
@@ -48,6 +49,15 @@ public class ProdutoService {
             valorLiquido = produto.getPreco() - impostoCalculado;
         }
 
+        validarDescontoDoValorLiquido(produto);
+
         return valorLiquido;
     }
+
+    public void validarDescontoDoValorLiquido(Produto produto){
+        if(produto.getTipoDeProduto() == TipoDeProduto.PRODUTO_ACABADO){
+            valorLiquido = valorLiquido - (valorLiquido / 100);
+        }
+    }
+
 }

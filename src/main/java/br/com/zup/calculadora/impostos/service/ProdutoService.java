@@ -1,6 +1,7 @@
 package br.com.zup.calculadora.impostos.service;
 
 import br.com.zup.calculadora.impostos.entity.*;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -8,6 +9,9 @@ import java.util.List;
 
 @Service
 public class ProdutoService {
+
+    @Autowired
+    private ClienteService clienteService;
 
     private double valorLiquido;
     private List<Produto> produtos = new ArrayList<>();
@@ -31,7 +35,7 @@ public class ProdutoService {
         throw new RuntimeException("Produto não encontrado");
     }
 
-    public double calcularValorLiquido(Produto produto, String imposto){
+    public double calcularValorLiquido(Produto produto, String imposto, Cliente cliente){
 
         double impostoCalculado;
 
@@ -50,6 +54,7 @@ public class ProdutoService {
         }
 
         validarDescontoDoValorLiquido(produto);
+        validarDescontoClientePreferencial(cliente);
 
         return valorLiquido;
     }
@@ -57,6 +62,12 @@ public class ProdutoService {
     public void validarDescontoDoValorLiquido(Produto produto){
         if(produto.getTipoDeProduto() == TipoDeProduto.PRODUTO_ACABADO){
             valorLiquido = valorLiquido - (valorLiquido / 100);
+        }
+    }
+
+    public void validarDescontoClientePreferencial(Cliente cliente){
+        if(cliente.getTipoDeCliente() == TipoDeCliente.PREFERENCIAL){
+            valorLiquido = valorLiquido - (valorLiquido * 0.005);
         }
     }
 

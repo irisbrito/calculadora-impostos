@@ -1,9 +1,16 @@
 package br.com.zup.calculadora.impostos.entity;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "clientes")
 public class Cliente {
 
-    private String nome;
+    @Id
     private String cpf;
+    private String nome;
     private TipoDeCliente tipoDeCliente;
 
     public Cliente() {

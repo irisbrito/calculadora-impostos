@@ -11,11 +11,14 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("produtos/")
 public class ProdutoController {
 
-    @Autowired
-    ProdutoService produtoService;
+    private ProdutoService produtoService;
+    private ClienteService clienteService;
 
     @Autowired
-    ClienteService clienteService;
+    public ProdutoController(ProdutoService produtoService, ClienteService clienteService) {
+        this.produtoService = produtoService;
+        this.clienteService = clienteService;
+    }
 
     @PostMapping
     public Produto cadastrarProduto(@RequestBody Produto produto){
@@ -24,15 +27,20 @@ public class ProdutoController {
 
     //produtos/calcular/caneta/ICMS
     @GetMapping("calculo/{produto}/{imposto}/{nome}")
-    public double calcularValorLiquido(@PathVariable String produto, @PathVariable String imposto, @PathVariable String cliente){
+    public double calcularValorLiquido(@PathVariable String produto, @PathVariable String imposto){
         Produto objProduto = produtoService.pesquisarProduto(produto);
-        Cliente objCliente = clienteService.cadastrarCliente(cliente);
+       //Cliente objCliente = clienteService.cadastrarCliente(cliente);
 
-        return produtoService.calcularValorLiquido(objProduto, imposto, objCliente);
+        return produtoService.calcularValorLiquido(objProduto, imposto);
     }
 
     @GetMapping("{nome}/")
     public Produto pesquisarProduto(@PathVariable String nome){
         return produtoService.pesquisarProduto(nome);
+    }
+
+    @DeleteMapping
+    public void deletarProduto(@PathVariable int id){
+        produtoService.deletarProduto(id);
     }
 }

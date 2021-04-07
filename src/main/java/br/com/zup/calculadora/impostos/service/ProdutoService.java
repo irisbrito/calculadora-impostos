@@ -1,6 +1,7 @@
 package br.com.zup.calculadora.impostos.service;
 
 import br.com.zup.calculadora.impostos.entity.*;
+import br.com.zup.calculadora.impostos.repository.ProdutoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -9,6 +10,9 @@ import java.util.List;
 
 @Service
 public class ProdutoService {
+
+    @Autowired
+    private ProdutoRepository produtoRepository;
 
     @Autowired
     private ClienteService clienteService;
@@ -21,9 +25,7 @@ public class ProdutoService {
     Tributavel calculoPIS = new CalculoPIS();
 
     public Produto cadastrarProduto(Produto produto){
-        produtos.add(produto);
-
-        return produto;
+       return produtoRepository.save(produto);
     }
 
     public Produto pesquisarProduto(String nome){
@@ -35,7 +37,7 @@ public class ProdutoService {
         throw new RuntimeException("Produto não encontrado");
     }
 
-    public double calcularValorLiquido(Produto produto, String imposto, Cliente cliente){
+    public double calcularValorLiquido(Produto produto, String imposto){
 
         double impostoCalculado;
 
@@ -54,7 +56,7 @@ public class ProdutoService {
         }
 
         validarDescontoDoValorLiquido(produto);
-        validarDescontoClientePreferencial(cliente);
+        //validarDescontoClientePreferencial(cliente);
 
         return valorLiquido;
     }
@@ -69,6 +71,10 @@ public class ProdutoService {
         if(cliente.getTipoDeCliente() == TipoDeCliente.PREFERENCIAL){
             valorLiquido = valorLiquido - (valorLiquido * 0.005);
         }
+    }
+
+    public void deletarProduto(int id){
+        produtoRepository.deleteById(id);
     }
 
 }

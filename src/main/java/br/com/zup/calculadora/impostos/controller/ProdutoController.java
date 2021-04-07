@@ -39,6 +39,11 @@ public class ProdutoController {
         return produtoService.pesquisarProduto(nome);
     }
 
+    @GetMapping
+    public Iterable<Produto> pesquisarTodosOsProdutos(){
+        return pesquisarTodosOsProdutos();
+    }
+
     @DeleteMapping
     public void deletarProduto(@PathVariable int id){
         produtoService.deletarProduto(id);

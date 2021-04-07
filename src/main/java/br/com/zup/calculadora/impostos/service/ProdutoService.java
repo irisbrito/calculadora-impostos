@@ -37,6 +37,10 @@ public class ProdutoService {
         throw new RuntimeException("Produto não encontrado");
     }
 
+    public Iterable<Produto> pesquisarTodosOsProdutos(){
+        return produtoRepository.findAll();
+    }
+
     public double calcularValorLiquido(Produto produto, String imposto){
 
         double impostoCalculado;

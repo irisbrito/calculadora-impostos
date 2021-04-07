@@ -24,4 +24,8 @@ public class ClienteService {
         return clienteRepository.findById(cpf);
     }
 
+    public void deletarCliente(String cpf){
+        clienteRepository.deleteById(cpf);
+    }
+
 }

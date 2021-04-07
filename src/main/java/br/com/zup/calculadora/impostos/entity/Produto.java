@@ -1,6 +1,13 @@
 package br.com.zup.calculadora.impostos.entity;
 
+import javax.persistence.*;
+
+@Entity
+@Table(name = "produtos")
 public class Produto {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
     private String nome;
     private String descricao;
     private double preco;

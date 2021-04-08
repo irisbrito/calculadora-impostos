@@ -41,7 +41,7 @@ public class ProdutoController {
 
     @GetMapping
     public Iterable<Produto> pesquisarTodosOsProdutos(){
-        return pesquisarTodosOsProdutos();
+        return produtoService.pesquisarTodosOsProdutos();
     }
 
     @DeleteMapping
